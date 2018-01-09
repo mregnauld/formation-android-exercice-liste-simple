@@ -100,8 +100,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
 	 */
 	public void onClickBoutonValider(View view)
 	{
+		// ajout du mémo :
 		memosAdapter.ajouterMemo(new Memo(editTextMemo.getText().toString()));
+		
+		// animation de repositionnement de la liste (sinon on ne voit pas l'item ajouté) :
 		recyclerView.smoothScrollToPosition(0);
+		
+		// on efface le contenu de la zone de saisie :
+		editTextMemo.setText("");
 	}
 	
 }
