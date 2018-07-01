@@ -1,13 +1,16 @@
 package com.formationandroid.listesimple;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
-public class MemosAdapter extends RecyclerView.Adapter<MemoViewHolder>
+public class MemosAdapter extends RecyclerView.Adapter<MemosAdapter.MemoViewHolder>
 {
 	
 	// Liste d'objets métier :
@@ -33,7 +36,7 @@ public class MemosAdapter extends RecyclerView.Adapter<MemoViewHolder>
 	@Override
 	public void onBindViewHolder(MemoViewHolder holder, int position)
 	{
-		holder.getTextViewIntitule().setText(listeMemos.get(position).getIntitule());
+		holder.textViewIntitule.setText(listeMemos.get(position).intitule);
 	}
 	
 	@Override
@@ -50,6 +53,43 @@ public class MemosAdapter extends RecyclerView.Adapter<MemoViewHolder>
 	{
 		listeMemos.add(0, memo);
 		notifyItemInserted(0);
+	}
+	
+	
+	/**
+	 * ViewHolder.
+	 */
+	class MemoViewHolder extends RecyclerView.ViewHolder
+	{
+		
+		// Vue intitulé mémo :
+		TextView textViewIntitule = null;
+		
+		
+		/**
+		 * Constructeur.
+		 * @param itemView Vue item
+		 */
+		MemoViewHolder(final View itemView)
+		{
+			super(itemView);
+			textViewIntitule = itemView.findViewById(R.id.memo_intitule);
+
+			// listener :
+			itemView.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View view)
+				{
+					// récupération du context depuis une vue :
+					Context context = itemView.getContext();
+					
+					// affichage du toast :
+					Toast.makeText(context, context.getString(R.string.main_message_position, getAdapterPosition()), Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+		
 	}
 	
 }
